@@ -19,7 +19,7 @@ jobs:                                     # 执行多个任务
           yarn build
 
       - name: Deploy
-        uses:  JamesIves/github-pages-deploy-action@master # ⽤来部github page的action
+        uses:  JamesIves/github-pages-deploy-action@releases/v3 # ⽤来部github page的action
         env: 
           ACCESS_TOKEN: ${{ secrets.ACESS_TOKEN }}  # github 的access token
           BRANCH: pages                     # 部署到哪个分支
