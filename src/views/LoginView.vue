@@ -29,6 +29,7 @@ const { loginModule, user, login, loggedIn, logout, } = useUser();
 @media (min-width: 1024px) {
   .login {
     min-height: 100vh;
+    padding: 15px;
     display: flex;
     align-items: center;
   }
