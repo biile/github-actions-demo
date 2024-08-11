@@ -1,1 +1,0 @@
-import{u as s,c as a,a as o,t as u,b as e,o as c}from"./index-CUUpPdqA.js";const l={class:"about"},p={__name:"AboutView",setup(i){const t=s();return(m,n)=>(c(),a("div",l,[o("h1",null,"count: "+u(e(t).count),1),o("h1",null,"doubleCount: "+u(e(t).doubleCount),1),o("button",{onClick:n[0]||(n[0]=(...r)=>e(t).increment&&e(t).increment(...r))},"Increment")]))}};export{p as default};

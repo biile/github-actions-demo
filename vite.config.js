@@ -10,7 +10,7 @@ export default defineConfig({
     vue(),
     vueJsx(),
   ],
-  base: 'github-actions-demo', // 仓库名
+  // base: 'github-actions-demo', // 仓库名
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
