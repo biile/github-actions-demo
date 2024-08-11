@@ -1,0 +1,55 @@
+name: Github Actions Build and Deploy Demo  # 构建文件名
+on:                                       # 监听'哪个分支'的'哪个动作'
+  push:                                     # 这里监听 main分支push动作
+    branches:
+      - master
+
+jobs:                                     # 执行多个任务
+  build-and-deploy:                       # job id
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@master
+        with: 
+          persist-credentials: false
+
+      - name: Install and Build
+        run: yarn install
+        
+      - name: Build
+        run: yarn build
+        
+      - name: Log to Docker Hub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with: 
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with: 
+          images: biiles/mirror-name
+          
+      - name: Build and push Docker image  # 构建和发布dockers镜像
+        uses:  docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: ssh docker login
+        uses: appleboy/ssh-action@master
+        with: 
+          host: ${{ secrets.TECENT_CLOUD_IP }}
+          username: ${{ secrets.TECENT_CLOUD_NAME }}
+          password: ${{ secrets.TECENT_CLOUD_PASSWORD }}
+          script: cd ~ && sh deploy.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
+
+      # - name: Deploy
+      #   uses:  JamesIves/github-pages-deploy-action@releases/v3 # ⽤来部github page的action
+      #   env: 
+      #     ACCESS_TOKEN: ${{ secrets.ACESS_TOKEN }}  # github 的access token
+      #     BRANCH: pages                     # 部署到哪个分支
+      #     FOLDER: dist                      # 要进行部署的目录
