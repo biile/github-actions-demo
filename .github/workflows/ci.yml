@@ -45,6 +45,7 @@ jobs:                                     # 执行多个任务
           host: ${{ secrets.TECENT_CLOUD_IP }}
           username: ${{ secrets.TECENT_CLOUD_NAME }}
           password: ${{ secrets.TECENT_CLOUD_PASSWORD }}
+          script: cd ~ && sh deploy.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
 
       # - name: Deploy
       #   uses:  JamesIves/github-pages-deploy-action@releases/v3 # ⽤来部github page的action
