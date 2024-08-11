@@ -47,9 +47,3 @@ jobs:                                     # 执行多个任务
           password: ${{ secrets.TECENT_CLOUD_PASSWORD }}
           script: cd ~ && sh deploy.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
 
-      # - name: Deploy
-      #   uses:  JamesIves/github-pages-deploy-action@releases/v3 # ⽤来部github page的action
-      #   env: 
-      #     ACCESS_TOKEN: ${{ secrets.ACESS_TOKEN }}  # github 的access token
-      #     BRANCH: pages                     # 部署到哪个分支
-      #     FOLDER: dist                      # 要进行部署的目录
